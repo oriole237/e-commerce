@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage ('stage 1'){
       steps {
-        composer install
+        docker image build -t jenkins-laravel
+          echo 'success'
       }
     }
   }
