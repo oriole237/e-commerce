@@ -1,20 +1,20 @@
 pipeline {
   agent any
   stages {
-    stage ('Build'){
+    stage ("dev"){
       steps {
-        git 'https://github.com/oriole237/e-commerce.git'
-        sh 'composer install'
-        sh 'cp .env.example .env'
-        sh 'php artisan key:generate'
-        echo 'build success'
+        echo 'test stage here'
       }
     }
-    stage ('Test'){
-        steps{
-            sh './vendor/bin/phpunit'
-            echo 'test success'
-        }
+    stage ("test"){
+      steps{
+          echo 'test stage here'
+      }
+    }
+    stage ("prod"){
+      steps{
+          echo 'test stage here'
+      }
     }
   }
   
