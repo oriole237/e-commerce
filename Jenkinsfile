@@ -1,9 +1,10 @@
 pipeline {
   agent any
   stages {
-    stage ("dev"){
+    stage ("build"){
       steps {
-        echo 'test stage here'
+        sh 'composer install'
+        sh 'find . -name "*.php" -print0 | xargs -0 -n1 php -l'
       }
     }
     stage ("test"){
@@ -11,7 +12,7 @@ pipeline {
           echo 'test stage here'
       }
     }
-    stage ("prod"){
+    stage ("deploy"){
       steps{
           echo 'test stage here'
       }
