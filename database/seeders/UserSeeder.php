@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         $password = hash("sha256", '12345678');
         
-        DB::table('users')->create([
+        DB::table('users')->insert([
             'name'=>'Oriole Elsa',
             'email'=> 'eoriole98@gmail.com',
             'password'=> $password,
@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
             'address' => 'Yaoundé',
             'phone' => '689809',
             'status' => 1,
-            'country_id'=> 1,
+            'country_id'=> null,
             'gender' => 'F',
         ]);
     }

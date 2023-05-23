@@ -93,6 +93,7 @@ class RoleAndPermissionSeeder extends Seeder
         ]);
 
         $user = DB::table('users')->first();
+        dd($user);
         $user->assignRole('Admin');
 
     }

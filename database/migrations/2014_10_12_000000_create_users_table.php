@@ -13,26 +13,52 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('username')->unique();
-            $table->string('address')->nullable();
-            $table->integer('phone');
-            $table->string('status');
-            $table->unsignedBigInteger('country_id');
-            $table->foreign('country_id')->references('id')->on('countries');
-            $table->string('gender')->nullable();
-            $table->date('birth')->nullable();
-            $table->text('description')->nullable();
-            $table->string('website')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if(!Schema::hasTable('users')){
+            Schema::create('users', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('email')->unique();
+                $table->string('username')->unique();
+                $table->string('address')->nullable();
+                $table->integer('phone');
+                $table->string('status');
+                $table->unsignedBigInteger('country_id')->nullable();
+                $table->foreign('country_id')->references('id')->on('countries');
+                $table->string('gender')->nullable();
+                $table->date('birth')->nullable();
+                $table->text('description')->nullable();
+                $table->string('website')->nullable();
+                $table->timestamp('email_verified_at')->nullable();
+                $table->string('password');
+                $table->rememberToken();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }else{
+            Schema::create('users', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('email')->unique();
+                $table->string('username')->unique();
+                $table->string('address')->nullable();
+                if(!Schema::hasColumn("phone") && !Schema::hasColumn("status") && !Schema::hasColumn("country_id")){
+                    $table->integer('phone');
+                    $table->string('status');
+                    $table->unsignedBigInteger('country_id')->nullable();
+                    $table->foreign('country_id')->references('id')->on('countries');
+                }
+                $table->string('gender')->nullable();
+                $table->date('birth')->nullable();
+                $table->text('description')->nullable();
+                $table->string('website')->nullable();
+                $table->timestamp('email_verified_at')->nullable();
+                $table->string('password');
+                $table->rememberToken();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
+       
     }
 
     /**
@@ -43,6 +69,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
-        $table->dropForeign('country_id');
+        // $table->dropForeign('country_id');
     }
 }

@@ -13,15 +13,18 @@ class CreateCommandsTable extends Migration
      */
     public function up()
     {
-        Schema::create('commands', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->string('reference');
-            $table->boolean('status')->default(0);
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if(!Schema::hasTable('commands')){
+            Schema::create('commands', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('user_id');
+                $table->foreign('user_id')->references('id')->on('users');
+                $table->string('reference');
+                $table->boolean('status')->default(0);
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
+        
     }
 
     /**
@@ -32,6 +35,6 @@ class CreateCommandsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('commands');
-        $table->dropForeign('user_id');
+        // $table->dropForeign('user_id');
     }
 }
