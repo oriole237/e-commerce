@@ -12,7 +12,7 @@ class HomeController extends Controller
         // dd($request->server('REMOTE_ADDR'));
         $ip ='92.168.100.102';
         $values = $currentUserInfo = Location::get($ip);
-        dd($values->countryCode);
+        // dd($values->countryCode);
         return view('principal.index');
     }
 }
